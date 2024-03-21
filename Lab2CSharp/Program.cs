@@ -191,39 +191,40 @@
 
         static void Task4()
         {
-            Console.WriteLine("Введіть розмірність масиву (n):");
-            int n = int.Parse(Console.ReadLine());
-
-            int[,] array2D = new int[n, n];
-            int[] resultArray = new int[n];
-
-            Console.WriteLine("Введіть елементи масиву:");
-            for (int i = 0; i < n; i++)
+           
+            int[][] jaggedArray =
             {
-                for (int j = 0; j < n; j++)
-                {
-                    array2D[i, j] = int.Parse(Console.ReadLine());
-                }
-            }
+                 new int[] { 1, -2, 3 },
+                 new int[] { -4, 5, -6, 7 },
+                 new int[] { -8, 9, -10 }
+    };
 
-            for (int j = 0; j < n; j++)
+            int n = jaggedArray.Length;
+            int m = jaggedArray.Max(subArray => subArray.Length);
+
+            int[] positiveFirstElements = new int[m]; // масив для зберігання перших додатних елементів кожного стовпця
+
+            // Знаходимо перші додатні елементи в кожному стовпці
+            for (int j = 0; j < m; j++)
             {
                 for (int i = 0; i < n; i++)
                 {
-                    if (array2D[i, j] > 0)
+                    if (jaggedArray[i].Length > j && jaggedArray[i][j] > 0)
                     {
-                        resultArray[j] = array2D[i, j];
+                        positiveFirstElements[j] = jaggedArray[i][j];
                         break;
                     }
                 }
             }
 
-            Console.WriteLine("Перші додатні елементи у кожному стовпці:");
-            for (int i = 0; i < n; i++)
+            // Виводимо результат
+            Console.WriteLine("Перші додатні елементи в кожному стовпці:");
+            for (int j = 0; j < m; j++)
             {
-                Console.WriteLine($"Стовпець {i + 1}: {resultArray[i]}");
+                Console.WriteLine($"Стовпець {j + 1}: {(positiveFirstElements[j] == 0 ? "немає додатних елементів" : positiveFirstElements[j].ToString())}");
             }
         }
+
 
     }
 }
